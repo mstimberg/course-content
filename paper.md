@@ -56,14 +56,12 @@ authors:
    affiliation: 15
  - name: Marco Brigham
    orcid: 0000-0001-5271-808X
-   affiliation: 16
+   affiliation: "16,17"
  - name: Bingni W Brunton
    orcid: 0000-0002-4831-3466
-   affiliation: 17
+   affiliation: 18
  - name: John S Butler
    orcid: 0000-0001-5567-8634
-   affiliation: 18
- - name: CCNSS
    affiliation: 19
  - name: Brandon Caie
    affiliation: 14
@@ -297,7 +295,7 @@ authors:
    orcid: 0000-0001-7106-814X
    affiliation: 89
  - name: Biraj Pandey
-   affiliation: 17
+   affiliation: 18
  - name: Renato Paredes
    orcid: 0000-0002-8261-3331
    affiliation: 90
@@ -312,7 +310,7 @@ authors:
    affiliation: 24
  - name: Xaq Pitkow
    orcid: 0000-0001-6376-329X
-   affiliation: "37,43"
+   affiliation: "43,37"
  - name: Panayiota Poirazi
    orcid: 0000-0001-6152-595X
    affiliation: 22
@@ -351,7 +349,7 @@ authors:
    affiliation: 77
  - name: Alice C Schwarze
    orcid: 0000-0002-9146-8068
-   affiliation: 17
+   affiliation: 18
  - name: Madineh Sedigh-Sarvestani
    affiliation: 102
  - name: K Yuvaraj Sekhar
@@ -366,7 +364,7 @@ authors:
    orcid: 0000-0003-1768-1802
    affiliation: 106
  - name: Eric Shea-Brown
-   affiliation: 17
+   affiliation: 18
  - name: Krishna V. Shenoy
    orcid: 0000-0003-1534-9240
    affiliation: 107
@@ -384,14 +382,14 @@ authors:
    affiliation: 111
  - name: Nicholas A. Steinmetz
    orcid: 0000-0001-7029-2908
-   affiliation: 17
+   affiliation: 18
  - name: Karolina Stosio
    affiliation: 112
  - name: Elizabeth Straley
    affiliation: 43
  - name: Gabrielle Strandquist
    orcid: 0000-0002-8345-6905
-   affiliation: 17
+   affiliation: 18
  - name: Carsen Stringer
    affiliation: 89
  - name: Rimjhim Tomar
@@ -487,11 +485,11 @@ affiliations:
    index: 15
  - name: Narrativa Comum Lda
    index: 16
- - name: University of Washington, Seattle
-   index: 17
- - name: TU Dublin, School of Mathematical Sciences, City Campus, Dublin Ireland
-   index: 18
  - name: Computational and Cognitive Neuroscience Summer School, https://www.ccnss.org/
+   index: 17
+ - name: University of Washington, Seattle
+   index: 18
+ - name: TU Dublin, School of Mathematical Sciences, City Campus, Dublin Ireland
    index: 19
  - name: Ecole Normale Supérieure, PSL University, Paris
    index: 20
@@ -732,7 +730,7 @@ Materials consist of highly curated recorded lectures and tutorials, organized i
 
 Each instruction module (day) consists of 1) an introductory lecture (~30 minutes) that broaches the topic to students and explains the general approach, followed by 2) hands-on tutorials in the form of several ipython notebooks (~3 hours) with code-completion assignments and answers, and further instruction through embedded micro-lectures, and finally 3) an outro lecture (~30 minutes) to recapitulate the covered material and provide an outlook on its applicability to neuroscience research. Each day is meant to instruct the basics of a given topic and further readings are supplied.
 
-All tutorials are available online in a [permanent archive](https://osf.io/93wna) of the 2021 edition of NMA, which has a copy of the GitHub repository, a JupyterBook and a set of tips we gave NMA teaching assistants, as well as most of the data sets for the group projects. Both the JupyterBook and the GitHub repository provide help on getting started with group projects as well. This main archive describes where all materials can be found and has a copy of the pre-requisite table that's at the end of this paper (Appendix 1). There is a backup of all videos in a [separate acrhive](https://osf.io/y8v9g) and the most up-to-date material is planned to stay available as an online [Jupyter Book](https://compneuro.neuromatch.io). The material is largely self sufficient and could be used for self-study or as parts of another course. For both purposes, the solutions to problems are provided in the OSF acrhive and the GitHub repository. Projects are best done in a group of students, and materials to get students started are self-contained. They consist of a video explaining what is in the data set, as well as a notebook that downloads the data from the NMA repository on OSF (which is different from the ones linked here).
+All tutorials are available online in a permanent [archive](https://osf.io/93wna) of the 2021 edition of NMA, which has a copy of the GitHub repository, a Jupyter Book and a set of tips we gave NMA teaching assistants, as well as most of the data sets for the group projects. Both the JupyterBook and the GitHub repository provide help on getting started with group projects as well. This main archive describes where all materials can be found and has a copy of the pre-requisite table in appendix 1. There is a backup of all videos in a separate [archive](https://osf.io/y8v9g) and the most up-to-date material is planned to stay available as an online [Jupyter Book](https://compneuro.neuromatch.io). The material is largely self sufficient and could be used for self-study or as parts of another course. For both purposes, the solutions to problems are provided in the OSF acrhive and the GitHub repository. Projects are best done in a group of students, and materials to get students started are self-contained. They consist of a video explaining what is in the data set, as well as a notebook that downloads the data from the NMA repository on OSF (which is different from the ones linked here).
 
 For attendees to apply what they learn they do group projects, and in 2020 we provided five curated data sets (see table 2) to use for these projects, including videos describing the data and ipython notebooks to get started. In 2021 we increased the number of curated data sets, and grouped them conceptually.
 
