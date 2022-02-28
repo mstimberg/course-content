@@ -467,7 +467,7 @@ affiliations:
    index: 5
  - name: Neuroscience Institute of Alicante
    index: 6
- - name: The Ohio State University, Columbus. 
+ - name: The Ohio State University, Columbus.
    index: 7
  - name: Smartalpha.AI, Ankara
    index: 8
@@ -591,7 +591,7 @@ affiliations:
    index: 67
  - name: Lawrence Berkeley National Laboratory
    index: 68
- - name: Peking University, Suoxinda 
+ - name: Peking University, Suoxinda
    index: 69
  - name: University of Tübingen and Max Planck Institute for Intelligent Systems
    index: 70
@@ -645,7 +645,7 @@ affiliations:
    index: 94
  - name: Institute of Neuroscience, Chinese Academy of Science, Shanghai
    index: 95
- - name: Cactus Communication, India 
+ - name: Cactus Communication, India
    index: 96
  - name: McGill University
    index: 97
@@ -732,19 +732,19 @@ Materials consist of highly curated recorded lectures and tutorials, organized i
 
 Each instruction module (day) consists of 1) an introductory lecture (~30 minutes) that broaches the topic to students and explains the general approach, followed by 2) hands-on tutorials in the form of several ipython notebooks (~3 hours) with code-completion assignments and answers, and further instruction through embedded micro-lectures, and finally 3) an outro lecture (~30 minutes) to recapitulate the covered material and provide an outlook on its applicability to neuroscience research. Each day is meant to instruct the basics of a given topic and further readings are supplied.
 
-All tutorials are available online in a [permanent archive](https://osf.io/93wna) of the 2021 edition of NMA, which has a copy of the GitHub repository, a JupyterBook and the slide decks the NMA teaching assistents used for teaching. This archive also describes where all materials can be found and has a copy of the pre-requisite table at the end of this paper (Appendix 1). There is a backup of all videos in a [separate acrhive](https://osf.io/79wv2/) and the most up-to-date material is planned to stay available as a online [Jupyter Book](https://compneuro.neuromatch.io). The material is largely self sufficient and could be used for self-study or as parts of another course. For both purposes, the solutions to problems are provided in the GitHub repository.
+All tutorials are available online in a [permanent archive](https://osf.io/93wna) of the 2021 edition of NMA, which has a copy of the GitHub repository, a JupyterBook and a set of tips we gave NMA teaching assistants, as well as most of the data sets for the group projects. Both the JupyterBook and the GitHub repository provide help on getting started with group projects as well. This main archive describes where all materials can be found and has a copy of the pre-requisite table that's at the end of this paper (Appendix 1). There is a backup of all videos in a [separate acrhive](https://osf.io/y8v9g) and the most up-to-date material is planned to stay available as an online [Jupyter Book](https://compneuro.neuromatch.io). The material is largely self sufficient and could be used for self-study or as parts of another course. For both purposes, the solutions to problems are provided in the OSF acrhive and the GitHub repository. Projects are best done in a group of students, and materials to get students started are self-contained. They consist of a video explaining what is in the data set, as well as a notebook that downloads the data from the NMA repository on OSF (which is different from the ones linked here).
 
 For attendees to apply what they learn they do group projects, and in 2020 we provided five curated data sets (see table 2) to use for these projects, including videos describing the data and ipython notebooks to get started. In 2021 we increased the number of curated data sets, and grouped them conceptually.
 
 | **Category** | **Data set**             | **Year** | **Contains**                         |
 | ---------- | ------------------------ | --- | -------------------------------------- |
-| Neurons      | Steinmetz data [@steinmetz2019]                    | _2020_ | neuropixels recording (waveforms, task events, spikes) in mice doing a visual discrimination task |
-|              | Stringer data [@stringer2019; @stringer2021]       | _2020_ | activity from ~10,000 V1 neurons, recorded with calcium imaging from a mouse in total darkness |
+| Neurons      | Steinmetz data [@steinmetz2019]                    | 2020 | neuropixels recording (waveforms, task events, spikes) in mice doing a visual discrimination task |
+|              | Stringer data [@stringer2019; @stringer2021]       | 2020 | activity from ~10,000 V1 neurons, recorded with calcium imaging from a mouse in total darkness |
 |              | Allen Institute data (no citation)                 | 2021 | recordings from VIP, SST, etc from mice doing a visual adaptation task, with novel or familiar images |
-| fMRI         | HCP data [@hcp2013; @barch2013]                    | _2020_ | fMRI time series in 7 tasks and resting state for 340 human participants, and parcellation in ROIs |
+| fMRI         | HCP data [@hcp2013; @barch2013]                    | 2020 | fMRI time series in 7 tasks and resting state for 340 human participants, and parcellation in ROIs |
 |              | FSL course task (no citation)                      | 2021 | complements HCP data with 2 language tasks, data at voxel level |
 |              | HCP retinotopy [@benson2018]                       | 2021 | allows visualizing receptive fields across brain regions |
-|              | Kay natural images [@kay2008; @naselaris2009]      | _2020_ | voxels from V1/V2/V3/V4, and annotated objects |
+|              | Kay natural images [@kay2008; @naselaris2009]      | 2020 | voxels from V1/V2/V3/V4, and annotated objects |
 |              | Bonner navigation data [@bonner2017]               | 2021 | activity from 12 participants watching scenes or navigation sequences |
 |              | Algonauts video clip data [@kriegeskorte2008]      | 2021 | activity in 10 participants watching 1000+ video clips [algonauts](http://algonauts.csail.mit.edu/challenge.html) |
 |              | Cichy objects/animals data [@cichy2014]            | 2021 | activity in 16 participants watching 92 images |
@@ -754,10 +754,9 @@ For attendees to apply what they learn they do group projects, and in 2020 we pr
 |              | Memory N-back data (no citation)                      | 2021 | ECoG recordings in participants responding to repeated house images 0, 1 or 2 stimuli back |
 |              | Miller motor imagery data [@miller2010]               | 2021 | ECoG recordings from participants   |
 | Behavior     | Caltech data set (no citation)                        | 2021 | pose-tracking from socially interacting mice |
-|              | IBL data [@ibl2021]                                   | _2020_ | behavior of mice doing a visual detection task with a bias |
+|              | IBL data [@ibl2021]                                   | 2020 | behavior of mice doing a visual detection task with a bias |
 
 **Table 2. Data sets for group projects.** _The data sets are available through the Neuromatch Academy [OSF repository](https://osf.io/hygbm/)._
- 
 
 ## Statement of Need
 
@@ -781,7 +780,7 @@ Our quality-control processes ensured that the course content was well received.
 
 ## Acknowledgements
 
-The Neuromatch Academy summer school also crucially relied on many teaching assistants, mentors and people organizing the community. Many of these people provided valuable feedback which will be used to improve the material and experience in coming summer schools. We wish to thank everyone involved in making NMA a success! 
+The Neuromatch Academy summer school also crucially relied on many teaching assistants, mentors and people organizing the community. Many of these people provided valuable feedback which will be used to improve the material and experience in coming summer schools. We wish to thank everyone involved in making NMA a success!
 
 ## Appendix 1: Prerequisites
 
@@ -848,5 +847,3 @@ For self-study or mixing the NMA course content with other content, we provide a
 **Table A2: Contributions of Neuromatch Academy content creators.**
 
 # References
-
-
