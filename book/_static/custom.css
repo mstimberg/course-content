@@ -1,3 +1,26 @@
 .inline-icon {
     vertical-align: baseline;
 }
+
+@media print {
+    @page {size: landscape}
+    
+    p {
+        font-size: 8pt;
+    }
+    
+    .subbox {
+        break-inside: avoid-page;
+    }
+    .section {
+        column-count: 3;
+    }
+    
+    .section#summary-sheet {
+        column-count: 1;
+    }
+    
+    h2 {
+        column-span: all;
+    }
+}
