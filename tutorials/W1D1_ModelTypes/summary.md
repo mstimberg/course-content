@@ -30,7 +30,7 @@ If the mean neuron is more active than 68% of the population, what does that imp
 
 
 ```{image} ../static/MT/MT_Figure1.png
-:width: 95%
+:width: 75%
 ```
 :::::
 
@@ -40,7 +40,7 @@ A "raster" plot, where the spikes from each neuron appear in a different row.
 Plotting a large number of neurons can give you a sense for the characteristics in the population. 
 
 ```{image} ../static/MT/MT_Figure2.png
-:width: 95%
+:width: 75%
 ```
 :::::
 
@@ -63,7 +63,7 @@ The ISI histograms seem to follow continuous, monotonically decreasing functions
 To motivate the idea of using a mathematical function to explain physiological phenomena, let's define a few different function forms that we might expect the relationship to follow: exponential, inverse, and linear.
 
 ```{image} ../static/MT/MT_Figure4.png
-:width: 95%
+:width: 75%
 ```
 
 The exponential function can be made to fit the data much better than the linear
@@ -98,7 +98,7 @@ Note that we define the membrane potential $V_m$ as a scalar: a single real (or 
 The proposed model is a 1D simplification. There are many details we could add to it, to preserve different parts of the complex structure and dynamics of a real neuron. If we were interested in small or local changes in the membrane potential, our 1D simplification could be a problem. However, we'll assume an idealized "point" neuron model for our current purpose.
 
 ```{image} ../static/MT/MT_Figure5.png
-:width: 95%
+:width: 75%
 ```
 :::::
 
@@ -162,7 +162,7 @@ stays the same even if you raise both. This is because they balance each other o
 4. Yes, these ISIs look more exponential, like what we observed.
 
 ```{image} ../static/MT/MT_Figure6.png
-:width: 95%
+:width: 75%
 ```
 :::::
 
@@ -217,7 +217,7 @@ The most common base of measuring entropy is $b=2$, so we often talk about \text
 A distribution with mass split equally between two points looks like:
 
 ```{image} ../static/MT/MT_Figure7.png
-:width: 95%
+:width: 75%
 ```
 
 Here, the entropy calculation is: $-(0.5 \log_2 0.5 + 0.5\log_2 0.5)=1$
@@ -256,7 +256,7 @@ Fixing the mean of the ISI distribution is equivalent to fixing its inverse: the
 Let's construct our three distributions and see how their entropies differ.
 
 ```{image} ../static/MT/MT_Figure8.png
-:width: 95%
+:width: 75%
 ```
 
 1. Deterministic: 0.00 bits
@@ -279,7 +279,7 @@ $$
 where $p_i$ is the probability of an ISI falling within a particular interval $i$ and $n_i$ is the count of how many ISIs were observed in that interval.
 
 ```{image} ../static/MT/MT_Figure9.png
-:width: 95%
+:width: 75%
 ```
 Entropy for Neuron 283: 3.36 bits
 

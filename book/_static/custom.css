@@ -3,10 +3,23 @@
 }
 
 @media print {
-    @page {size: landscape}
-    
+    @page {
+      size: 297mm 210mm;
+      margin:0;
+    }
+    html, body {
+        hyphens: auto;
+        width: 297mm;
+        /* height: 297mm; */
+        height: 210mm;
+        overflow:visible;
+    }
+    #print-main-content {
+        display: none;
+    }
     p {
         font-size: 8pt;
+        line-height: 1.3;
     }
     
     .subbox {
@@ -24,3 +37,4 @@
         column-span: all;
     }
 }
+
