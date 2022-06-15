@@ -1,0 +1,15 @@
+diff --git a/nmaci-main/scripts/generate_book.py b/nmaci-main/scripts/generate_book.py
+index 4ebf5ce..b47af55 100644
+--- a/nmaci-main/scripts/generate_book.py
++++ b/nmaci-main/scripts/generate_book.py
+@@ -59,6 +59,10 @@ def main():
+         # Add further reading page
+         chapter['sections'].append({'file': f"{directory}/further_reading.md"})
+ 
++        # Add summary sheets
++        if not m['day'].startswith('W0'):
++            chapter['sections'].append({'file': f"{directory}/summary.md"})
++
+         # Add chapter
+         toc[part]['chapters'].append(chapter)
+ 

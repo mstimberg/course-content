@@ -38,6 +38,10 @@ jobs:
           wget https://github.com/NeuromatchAcademy/nmaci/archive/refs/heads/$BRANCH.tar.gz
           tar -xzf $BRANCH.tar.gz
           pip install -r nmaci-$BRANCH/requirements.txt
+          echo Branch: $BRANCH
+          ls nmaci-main
+          ls nmaci-main/scripts
+          patch -p1 < generate_book.patch
           mv nmaci-$BRANCH/scripts/ ci/
           rm -r nmaci-$BRANCH
           rm -r $BRANCH.tar.gz
