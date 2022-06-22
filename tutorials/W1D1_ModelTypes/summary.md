@@ -1,3 +1,4 @@
+{{ print_css }}
 # Summary Sheet
 
 ## Tutorial W1D1: "What" models
@@ -30,7 +31,8 @@ If the mean neuron is more active than 68% of the population, what does that imp
 
 
 ```{image} ../static/MT/MT_Figure1.png
-:width: 75%
+:width: 50%
+:align: center
 ```
 :::::
 
@@ -40,7 +42,8 @@ A "raster" plot, where the spikes from each neuron appear in a different row.
 Plotting a large number of neurons can give you a sense for the characteristics in the population. 
 
 ```{image} ../static/MT/MT_Figure2.png
-:width: 75%
+:width: 50%
+:align: center
 ```
 :::::
 
@@ -57,18 +60,20 @@ In general, the shorter ISIs are predominant, with counts decreasing rapidly (an
 :::::
 
 :::::{admonition} What is the functional form of an ISI distribution?
+:class: subbox
 
 The ISI histograms seem to follow continuous, monotonically decreasing functions above their maxima. The function is clearly non-linear. Could it belong to a single family of functions?
 
 To motivate the idea of using a mathematical function to explain physiological phenomena, let's define a few different function forms that we might expect the relationship to follow: exponential, inverse, and linear.
 
 ```{image} ../static/MT/MT_Figure4.png
-:width: 75%
+:width: 40%
+:align: center
 ```
 
-The exponential function can be made to fit the data much better than the linear
-or inverse function.
+The exponential function can be made to fit the data much better than the linear or inverse function.
 :::::
+
 
 ## Tutorial W1D1: "How" models
 
@@ -81,13 +86,15 @@ We will explore models that can potentially explain **"How"** the spiking data w
 :::::
 
 :::::{admonition} How does a neuron spike?
+:class: subbox
+
 A neuron charges and discharges an electric field across its cell membrane. The state of this electric field can be described by the *membrane potential*. The membrane potential rises due to excitation of the neuron, and when it reaches a threshold a spike occurs. The potential resets, and must rise to a threshold again before the next spike occurs.
 
 One of the simplest models of spiking neuron behavior is the linear integrate-and-fire (LIF) model neuron. In this model, the neuron increases its membrane potential $V_m$ over time in response to excitatory input currents $I$ scaled by some factor $\alpha$:
 
-$$
+\begin{equation*}
 dV_m = {\alpha}I
-$$
+\end{equation*}
 
 Once $V_m$ reaches a threshold value a spike is produced, $V_m$ is reset to a starting value, and the process continues. 
 
@@ -98,7 +105,8 @@ Note that we define the membrane potential $V_m$ as a scalar: a single real (or 
 The proposed model is a 1D simplification. There are many details we could add to it, to preserve different parts of the complex structure and dynamics of a real neuron. If we were interested in small or local changes in the membrane potential, our 1D simplification could be a problem. However, we'll assume an idealized "point" neuron model for our current purpose.
 
 ```{image} ../static/MT/MT_Figure5.png
-:width: 75%
+:width: 66%
+:align: center
 ```
 :::::
 
@@ -115,9 +123,9 @@ Given no other information about the input neurons, we will also assume that the
 
 A suitable distribution given these assumptions is the Poisson distribution, which we'll use to model $I$:
 
-$$
+\begin{equation*}
 I \sim \mathrm{Poisson}(\lambda)
-$$
+\end{equation*}
 
 where $\lambda$ is the mean of the distribution: the average rate of spikes received per timestep.
 
@@ -130,19 +138,19 @@ Our linear IF neuron from the previous section was indeed able to produce spikes
 
 In the previous model we only considered excitatory behavior. We know, however, that there are other factors that can drive $V_m$ down. First is the natural tendency of the neuron to return to some steady state or resting potential. We can update our previous model as follows:
 
-$$
+\begin{equation*}
 dV_m = -{\beta}V_m + {\alpha}I
-$$
+\end{equation*}
 
 where $V_m$ is the current membrane potential and $\beta$ is some leakage factor. This is a basic form of the popular LIF model.
 
 We also know that in addition to excitatory presynaptic neurons, we can have inhibitory presynaptic neurons as well. We can model these inhibitory neurons with another Poisson random variable:
 
-\begin{align}
+\begin{align*}
 I &= I_{\mathrm{exc}} - I_{\mathrm{inh}} \\
 I_{\mathrm{exc}} &\sim \mathrm{Poisson}(\lambda_{\mathrm{exc}}) \\
 I_{\mathrm{inh}} &\sim \mathrm{Poisson}(\lambda_{\mathrm{inh}})
-\end{align}
+\end{align*}
 
 where $\lambda_{\mathrm{exc}}$ and $\lambda_{\mathrm{inh}}$ are the average spike rates (per timestep) of the excitatory and inhibitory presynaptic neurons, respectively.
 
@@ -162,7 +170,8 @@ stays the same even if you raise both. This is because they balance each other o
 4. Yes, these ISIs look more exponential, like what we observed.
 
 ```{image} ../static/MT/MT_Figure6.png
-:width: 75%
+:width: 66%
+:align: center
 ```
 :::::
 
@@ -199,6 +208,7 @@ To understand why different spiking behaviors may be beneficial, we will learn a
 :::::
 
 :::::{admonition} Optimization and Information
+:class: subbox
 
 Neurons can only fire so often in a fixed period of time, as the act of emitting a spike consumes energy that is depleted and must eventually be replenished. To communicate effectively for downstream computation, the neuron would need to make good use of its limited spiking capability. This becomes an optimization problem: 
 
@@ -206,9 +216,9 @@ What is the optimal way for a neuron to fire in order to maximize its ability to
 
 In order to explore this question, we first need to have a quantifiable measure for information. Shannon introduced the concept of entropy to do just that, and defined it as
 
-$$
+\begin{equation*}
 H_b(X) = -\sum_{x\in X} p(x) \log_b p(x)
-$$
+\end{equation*}
 
 where $H$ is entropy measured in units of base $b$ and $p(x)$ is the probability of observing the event $x$ from the set of all possible events in $X$. See the Bonus Section 1 for a more detailed look at how this equation was derived.
 
@@ -217,7 +227,8 @@ The most common base of measuring entropy is $b=2$, so we often talk about \text
 A distribution with mass split equally between two points looks like:
 
 ```{image} ../static/MT/MT_Figure7.png
-:width: 75%
+:width: 66%
+:align: center
 ```
 
 Here, the entropy calculation is: $-(0.5 \log_2 0.5 + 0.5\log_2 0.5)=1$
@@ -232,11 +243,11 @@ Likewise, if we make one of the peaks taller and the other one shorter, the entr
 
 If we split the probability mass among even more points, the entropy continues to increase. Let's derive the general form for $N$ points of equal mass, where $p_i=p=1/N$:
 
-\begin{align}
+\begin{align*}
 -\sum_i p_i \log_b p_i &= -\sum_i^N \frac{1}{N} \log_b \frac{1}{N} \\
 &= -\log_b \frac{1}{N} \\
 &= \log_b N
-\end{align}
+\end{align*}
 
 If we have $N$ discrete points, the \textit{uniform distribution} (where all points have equal mass) is the distribution with the highest entropy: $\log_b N$. This upper bound on entropy is useful when considering binning strategies, as any estimate of entropy over $N$ discrete points (or bins) must be in the interval $[0, \log_b N]$
 
@@ -256,7 +267,8 @@ Fixing the mean of the ISI distribution is equivalent to fixing its inverse: the
 Let's construct our three distributions and see how their entropies differ.
 
 ```{image} ../static/MT/MT_Figure8.png
-:width: 75%
+:width: 66%
+:align: center
 ```
 
 1. Deterministic: 0.00 bits
@@ -272,20 +284,22 @@ In the previous example we created the PMFs by hand to illustrate idealized scen
 
 One way is to convert the ISI histograms we've previously computed into discrete probability distributions using the following equation:
 
-$$
+\begin{equation*}
 p_i = \frac{n_i}{\sum\nolimits_{i}n_i}
-$$
+\end{equation*}
 
 where $p_i$ is the probability of an ISI falling within a particular interval $i$ and $n_i$ is the count of how many ISIs were observed in that interval.
 
 ```{image} ../static/MT/MT_Figure9.png
-:width: 75%
+:width: 66%
+:align: center
 ```
 Entropy for Neuron 283: 3.36 bits
 
 :::::
 
 :::::{admonition} Summary
+:class: subbox
 
 We used different types of models to understand the spiking behavior of neurons recorded in the Steinmetz data set. 
 
@@ -296,6 +310,7 @@ We used different types of models to understand the spiking behavior of neurons 
 :::::
 
 :::::{admonition} Notation
+:class: subbox
 
 \begin{align*}
 H(X) &\quad \text{entropy of random variable X}\\
