@@ -61,6 +61,13 @@ jobs:
           rm -r precourse-$BRANCH
           rm -r $BRANCH.tar.gz
 
+      - name: Cache jupyter book cache
+        id: cache-jupyter-book-cache
+        uses: actions/cache@v3
+        with:
+          path: book/_build/.jupyter_cache/
+          key: ${{ env.NMA_REPO }}-jupyter-book-cache-${{ hashFiles('**/requirements.txt') }}
+
       - name: Build student book
         run: |
           python ci/generate_book.py student
