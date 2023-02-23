@@ -67,19 +67,6 @@ jobs:
           ln -s ../tutorials book/tutorials
           ln -s ../projects book/projects
           ln -s ../prereqs book/prereqs
-          jupyter-book build -v book
+          jupyter-book build -vv book
           python ci/parse_html_for_errors.py student
 
-      - name: Commit book
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          ghp-import -n -c "compneuro.neuromatch.io" -m "Update course book" book/_build/html
-          git checkout -f gh-pages
-
-      - name: Publish to gh-pages
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
-          force: true
