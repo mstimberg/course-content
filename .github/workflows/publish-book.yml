@@ -38,6 +38,7 @@ jobs:
           wget https://github.com/NeuromatchAcademy/nmaci/archive/refs/heads/$BRANCH.tar.gz
           tar -xzf $BRANCH.tar.gz
           pip install -r nmaci-$BRANCH/requirements.txt
+          pip install jupyter_client==7.3.5  # downgrade jupyter-client to fix hangs
           mv nmaci-$BRANCH/scripts/ ci/
           rm -r nmaci-$BRANCH
           rm -r $BRANCH.tar.gz
