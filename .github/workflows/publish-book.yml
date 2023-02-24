@@ -68,12 +68,12 @@ jobs:
           rm -r precourse-$BRANCH
           rm -r $BRANCH.tar.gz
 
-      - name: Cache jupyter book cache
-        id: cache-jupyter-book-cache
+      - name: Cache sphinx build (including jupyter notebook cache)
+        id: cache-sphinx
         uses: actions/cache@v3
         with:
-          path: book/_build/.jupyter_cache/
-          key: ${{ env.NMA_REPO }}-jupyter-book-cache-${{ hashFiles('**/requirements.txt') }}
+          path: book/_build/
+          key: ${{ env.NMA_REPO }}-sphinx-${{ hashFiles('**/requirements.txt', 'book/_config.yml') }}
 
       - name: Build student book
         run: |
