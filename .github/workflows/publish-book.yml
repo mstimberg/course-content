@@ -61,24 +61,24 @@ jobs:
 
       - name: Run jupyter notebooks
         run: |
-            NOTEBOOKS=$(find -L book -name '*.ipynb')
+            NOTEBOOKS=$(grep ipynb book/_toc.yml | python -c 'import sys;print(" ".join([l.strip().split("- file: ")[1] for l in sys.stdin]))')
             python -m venv venv
             source venv/bin/activate
             python -m pip install -r requirements.txt
             python -m pip install nbconvert
             for notebook in $NOTEBOOKS; do
-              if [[ "$notebook" != *student* && "$notebook" != *instructor* ]]; then
                 echo "Executing $notebook"
                 jupyter nbconvert --to notebook --execute --inplace \
                   --ExecutePreprocessor.timeout=14400 \
                   --ExecutePreprocessor.allow_error_names='[NotImplementedError]' \
                   $notebook
-              fi
             done
+        env:
+          PYDEVD_DISABLE_FILE_VALIDATION: 1
 
       - name: Build student book
         run: |
-          NOTEBOOKS=$(find -L . -name '*.ipynb')
+          NOTEBOOKS=$(grep -- "- file:" book/_toc.yml | python -c 'import sys;print(" ".join([l.strip().split("- file: ")[1] for l in sys.stdin]))')
           python -m venv nmaci/venv
           python ci/process_notebooks.py --check-execution $NOTEBOOKS
           jupyter-book build book
