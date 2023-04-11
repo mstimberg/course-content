@@ -58,6 +58,11 @@ jobs:
           ln -s ../projects book/projects
           ln -s ../prereqs book/prereqs
 
+      - name: Run jupyter notebooks
+        run: |
+            NOTEBOOKS=$(find -L book -name '*.ipynb')
+            python ci/process_notebooks.py --execute $NOTEBOOKS 
+            
       - name: Build student book
         run: |
           jupyter-book build book
