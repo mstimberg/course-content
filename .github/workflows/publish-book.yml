@@ -16,10 +16,11 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           persist-credentials: false
           fetch-depth: 0
+          submodules: true
           ref: ${{ github.head_ref }}
           
       - name: Get commit message
@@ -34,14 +35,7 @@ jobs:
 
       - name: Install CI tools
         run: |
-          BRANCH=`python -c 'import os, re; m = re.search(r"nmaci:([\w-]+)", os.environ["COMMIT_MESSAGE"]); print("main" if m is None else m.group(1))'`
-          wget https://github.com/NeuromatchAcademy/nmaci/archive/refs/heads/$BRANCH.tar.gz
-          tar -xzf $BRANCH.tar.gz
-          pip install -r nmaci-$BRANCH/requirements.txt
-          mv nmaci-$BRANCH/scripts/ ci/
-          rm -r nmaci-$BRANCH
-          rm -r $BRANCH.tar.gz
-          echo ci/ >> .gitignore
+          pip install -r nmaci/requirements.txt
 
       - name: Install dependencies
         run: |

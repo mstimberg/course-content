@@ -1,0 +1,3 @@
+[submodule "nmaci"]
+	path = nmaci
+	url = https://github.com/NeuromatchAcademy/nmaci
