@@ -30,17 +30,12 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.7
-
-      - name: Install CI tools
-        run: |
-          pip install -r nmaci/requirements.txt
+          python-version: 3.7         
 
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install jupyter-book==0.10.2 ghp-import
-          pip install jupyter_client==7.3.5  # downgrade jupyter-client to fix hangs
+
 
       - name: Copy tutorials from precourse repo
         if: "!contains(env.COMMIT_MESSAGE, 'skip precourse')"
@@ -55,12 +50,16 @@ jobs:
           rm -r precourse-$BRANCH
           rm -r $BRANCH.tar.gz
 
-      - name: Build student book
+      - name: Prepare student book
         run: |
+          pip install -r nmaci/requirements.txt
           python ci/generate_book.py student
           ln -s ../tutorials book/tutorials
           ln -s ../projects book/projects
           ln -s ../prereqs book/prereqs
+
+      - name: Build student book
+        run: |
           jupyter-book build book
           python ci/parse_html_for_errors.py student
 
