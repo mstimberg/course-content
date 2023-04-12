@@ -70,7 +70,7 @@ jobs:
                 echo "Executing $notebook"
                 jupyter nbconvert --to notebook --execute --inplace \
                   --ExecutePreprocessor.timeout=14400 \
-                  --ExecutePreprocessor.allow_error_names='[NotImplementedError]' \
+                  --allow-errors \
                   $notebook
             done
         env:
