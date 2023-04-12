@@ -90,6 +90,7 @@ jobs:
 
       - name: Commit book
         run: |
+          source nmaci/venv/bin/activate
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           ghp-import -n -c "compneuro.neuromatch.io" -m "Update course book" book/_build/html
