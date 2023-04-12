@@ -82,7 +82,7 @@ jobs:
       - name: Build jupyter book
         run: |
           NOTEBOOKS=$(grep -- "- file:" book/_toc.yml | python -c 'import sys;print(" ".join(["book/" + l.strip().split("- file: ")[1] for l in sys.stdin]))')
-          python -m venv nmaci/venv
+          source nmaci/venv/bin/activate
           python ci/process_notebooks.py --check-execution $NOTEBOOKS
           jupyter-book build book
           python ci/parse_html_for_errors.py student
