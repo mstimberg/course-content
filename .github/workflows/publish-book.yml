@@ -61,7 +61,7 @@ jobs:
 
       - name: Run jupyter notebooks
         run: |
-            NOTEBOOKS=$(grep ipynb book/_toc.yml | python -c 'import sys;print(" ".join([l.strip().split("- file: ")[1] for l in sys.stdin]))')
+            export NOTEBOOKS=$(grep ipynb book/_toc.yml | python -c 'import sys;print(" ".join(["book/" + l.strip().split("- file: ")[1] for l in sys.stdin]))')
             python -m venv venv
             source venv/bin/activate
             python -m pip install -r requirements.txt
@@ -76,9 +76,9 @@ jobs:
         env:
           PYDEVD_DISABLE_FILE_VALIDATION: 1
 
-      - name: Build student book
+      - name: Build jupyter book
         run: |
-          NOTEBOOKS=$(grep -- "- file:" book/_toc.yml | python -c 'import sys;print(" ".join([l.strip().split("- file: ")[1] for l in sys.stdin]))')
+          NOTEBOOKS=$(grep -- "- file:" book/_toc.yml | python -c 'import sys;print(" ".join(["book/" + l.strip().split("- file: ")[1] for l in sys.stdin]))')
           python -m venv nmaci/venv
           python ci/process_notebooks.py --check-execution $NOTEBOOKS
           jupyter-book build book
