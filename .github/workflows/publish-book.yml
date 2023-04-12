@@ -67,11 +67,14 @@ jobs:
             python -m pip install -r requirements.txt
             python -m pip install nbconvert jupyter-client==7.3.5
             for notebook in $NOTEBOOKS; do
-                echo "Executing $notebook"
-                jupyter nbconvert --to notebook --execute --inplace \
-                  --ExecutePreprocessor.timeout=14400 \
-                  --allow-errors \
-                  $notebook
+                if [[ -f "$notebook" ]]; then
+                  jupyter nbconvert --to notebook --execute --inplace \
+                    --ExecutePreprocessor.timeout=14400 \
+                    --allow-errors \
+                    $notebook
+                else
+                  echo "$notebook does not exist!"
+                fi
             done
         env:
           PYDEVD_DISABLE_FILE_VALIDATION: 1
