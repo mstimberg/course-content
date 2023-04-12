@@ -84,6 +84,7 @@ jobs:
           NOTEBOOKS=$(grep -- "- file:" book/_toc.yml | python -c 'import sys;print(" ".join(["book/" + l.strip().split("- file: ")[1] for l in sys.stdin]))')
           source nmaci/venv/bin/activate
           python ci/process_notebooks.py --check-execution $NOTEBOOKS
+          jupyter-book toc migrate book/_toc.yml -o book/_toc.yml
           jupyter-book build book
           python ci/parse_html_for_errors.py student
 
