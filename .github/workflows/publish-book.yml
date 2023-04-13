@@ -36,10 +36,6 @@ jobs:
         run:
           python -m pip install --upgrade pip
 
-      - name: Copy tutorials from precourse repo
-        run: |
-          echo -e $(cat precourse/tutorials/materials.yml)\n$(cat tutorials/materials.yml) > tutorials/materials.yml
-
       - name: Prepare student book
         run: |
           python -m venv nmaci/venv
