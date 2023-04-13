@@ -1,3 +1,6 @@
 [submodule "nmaci"]
 	path = nmaci
 	url = https://github.com/NeuromatchAcademy/nmaci
+[submodule "precourse"]
+	path = precourse
+	url = https://github.com/NeuromatchAcademy/precourse/
