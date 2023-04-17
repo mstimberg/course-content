@@ -45,29 +45,15 @@ jobs:
 
       - name: Run jupyter notebooks
         run: |
-            export NOTEBOOKS=$(grep ipynb book/_toc.yml | python -c 'import sys;print(" ".join(["book/" + l.strip().split("- file: ")[1] for l in sys.stdin]))')
             python -m venv venv
             source venv/bin/activate
             python -m pip install -r requirements.txt
-            python -m pip install nbconvert jupyter-client==7.3.5
-            for notebook in $NOTEBOOKS; do
-                if [[ -f "$notebook" ]]; then
-                  jupyter nbconvert --to notebook --execute --inplace \
-                    --ExecutePreprocessor.timeout=14400 \
-                    --allow-errors \
-                    $notebook
-                else
-                  echo "$notebook does not exist!"
-                fi
-            done
-        env:
-          PYDEVD_DISABLE_FILE_VALIDATION: 1
+            python -m pip install nbconvert jupyter-client==7.3.5 pyyaml
+            python ci/run_notebooks_from_toc.py book/_toc.yml
 
       - name: Build jupyter book
         run: |
-          NOTEBOOKS=$(grep -- "- file:" book/_toc.yml | python -c 'import sys;print(" ".join(["book/" + l.strip().split("- file: ")[1] for l in sys.stdin]))')
           source nmaci/venv/bin/activate
-          python ci/process_notebooks.py --check-execution $NOTEBOOKS
           jupyter-book toc migrate book/_toc.yml -o book/_toc.yml
           jupyter-book build book
           python ci/parse_html_for_errors.py student
