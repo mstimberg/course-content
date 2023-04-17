@@ -21,11 +21,15 @@ jobs:
           persist-credentials: false
           submodules: true
           ref: ${{ github.head_ref }}
-          
+
       - name: Get commit message
         run: |
           readonly local msg=$(git log -1 --pretty=format:"%s")
           echo "COMMIT_MESSAGE=$msg" >> $GITHUB_ENV
+
+      - name: Install xkcd font
+        run: |
+          sudo apt install fonts-humor-sans
 
       - name: Set up Python
         uses: actions/setup-python@v4
