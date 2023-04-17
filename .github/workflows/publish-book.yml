@@ -32,35 +32,27 @@ jobs:
         with:
           python-version: 3.11
 
-      - name: Upgrade pip
+      - name: Install tox via pipx
         run:
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip pipx-in-pipx
+          pipx install tox
 
       - name: Prepare student book
         run: |
-          python -m venv nmaci/venv
-          source nmaci/venv/bin/activate
-          python -m pip install -r nmaci/requirements.txt
-          python ci/generate_book.py student
+          tox run -e prepare
 
       - name: Run jupyter notebooks
         run: |
-            python -m venv venv
-            source venv/bin/activate
-            python -m pip install -r requirements.txt
-            python -m pip install nbconvert jupyter-client==7.3.5 pyyaml
-            python ci/run_notebooks_from_toc.py book/_toc.yml
+          tox run -e run
 
       - name: Build jupyter book
         run: |
-          source nmaci/venv/bin/activate
-          jupyter-book toc migrate book/_toc.yml -o book/_toc.yml
-          jupyter-book build book
-          python ci/parse_html_for_errors.py student
+          tox run -e verify
+          tox run -e build
 
       - name: Commit book
         run: |
-          source nmaci/venv/bin/activate
+          pipx install ghp-import
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           ghp-import -n -c "compneuro.neuromatch.io" -m "Update course book" book/_build/html
