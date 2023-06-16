@@ -29,24 +29,28 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
 
       - name: Install CI tools
         run: |
           BRANCH=`python -c 'import os, re; m = re.search(r"nmaci:([\w-]+)", os.environ["COMMIT_MESSAGE"]); print("main" if m is None else m.group(1))'`
           wget https://github.com/NeuromatchAcademy/nmaci/archive/refs/heads/$BRANCH.tar.gz
           tar -xzf $BRANCH.tar.gz
-          pip install -r nmaci-$BRANCH/requirements.txt
+          cp nmaci-$BRANCH/requirements.txt nmaci-requirements.txt
+          pip install -r nmaci-requirements.txt -c requirements.txt
           mv nmaci-$BRANCH/scripts/ ci/
           rm -r nmaci-$BRANCH
           rm -r $BRANCH.tar.gz
           echo ci/ >> .gitignore
 
-      - name: Install dependencies
+      - name: Install jupyter book
         run: |
-          pip install -r requirements.txt
-          pip install jupyter-book==0.10.2 ghp-import
-          pip install jupyter_client==7.3.5  # downgrade jupyter-client to fix hangs
+          # Keep versions of already installed packages the same
+          pip install jupyter-book~=0.15 jupyter_client~=8.2 -c requirements.txt
 
       - name: Install XKCD fonts
         if: "!contains(env.COMMIT_MESSAGE, 'skip ci')"
@@ -76,11 +80,14 @@ jobs:
           ln -s ../tutorials book/tutorials
           ln -s ../projects book/projects
           ln -s ../prereqs book/prereqs
+          # Migrate TOC to new format
+          jupyter-book toc migrate book/_toc.yml -o book/_toc.yml 
           jupyter-book build book
           python ci/parse_html_for_errors.py student
 
       - name: Commit book
         run: |
+          pip install ghp-import
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           ghp-import -n -c "compneuro.neuromatch.io" -m "Update course book" book/_build/html

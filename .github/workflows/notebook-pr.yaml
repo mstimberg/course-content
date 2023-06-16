@@ -32,7 +32,13 @@ jobs:
         if: "!contains(env.COMMIT_MESSAGE, 'skip ci')"
         uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: 3.11
+
+      - name: Install dependencies
+        if: "!contains(env.COMMIT_MESSAGE, 'skip ci')"
+        run: |
+          python -m pip install --upgrade pip wheel
+          pip install -r requirements.txt
 
       - name: Install CI tools
         if: "!contains(env.COMMIT_MESSAGE, 'skip ci')"
@@ -40,16 +46,11 @@ jobs:
           BRANCH=`python -c 'import os, re; m = re.search(r"nmaci:([\w-]+)", os.environ["COMMIT_MESSAGE"]); print("main" if m is None else m.group(1))'`
           wget https://github.com/NeuromatchAcademy/nmaci/archive/refs/heads/$BRANCH.tar.gz
           tar -xzf $BRANCH.tar.gz
-          pip install -r nmaci-$BRANCH/requirements.txt
+          # Make sure that the requirements do not change versions
+          pip install -r nmaci-$BRANCH/requirements.txt -c requirements.txt
           mv nmaci-$BRANCH/scripts/ ci/
           rm -r nmaci-$BRANCH
           echo ci/ >> .gitignore
-
-      - name: Install dependencies
-        if: "!contains(env.COMMIT_MESSAGE, 'skip ci')"
-        run: |
-          python -m pip install --upgrade pip wheel
-          pip install -r requirements.txt
 
       - name: Install XKCD fonts
         if: "!contains(env.COMMIT_MESSAGE, 'skip ci')"
