@@ -75,7 +75,7 @@ jobs:
       - name: Upload videos
         uses: actions/upload-artifact@v3
         with:
-          name: videos
+          name: NMA-compneuro-videos-${{ github.event.repository.updated_at}}
           path: videos
 
   download_slides:
@@ -133,13 +133,11 @@ jobs:
       - name: Download slides
         run: |
           mkdir slides
-          jq -r ".slides | to_entries | map(.value) | flatten | .[]" links.json | sort | uniq > slide_urls.txt
-          echo "Downloading slides from these urls"
-          cat slide_urls.txt
-          wget --quiet -i slide_urls.txt -P slides || echo "Continue"
+          jq -r "def output: \"-O \" + .value + \" \" +.key; .slides | to_entries | map(output) | .[]" links.json > slide_urls.txt
+          for url in $(cat slide_urls.txt); do wget --quiet $url -P slides; done
 
       - name: Upload slides
         uses: actions/upload-artifact@v3
         with:
-          name: slides
+          name: NMA-compneuro-slides-${{ github.event.repository.updated_at}}
           path: slides
