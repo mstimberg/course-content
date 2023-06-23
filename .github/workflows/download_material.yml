@@ -10,7 +10,7 @@ env:
 
 jobs:
 
-  download_material:
+  download_videos:
 
     runs-on: ubuntu-latest
     steps:
@@ -67,23 +67,76 @@ jobs:
       - name: Download videos
         run: |
           mkdir videos  
-          jq -r ".videos | to_entries | map(.value) | flatten | .[]" links.json  > video_urls.txt
+          jq -r ".videos | to_entries | map(.value) | flatten | .[]" links.json | sort | uniq > video_urls.txt
           echo "Downloading videos from these urls"
           cat video_urls.txt
           ./youtube-dl --max-downloads 2 --newline -a video_urls.txt -o "videos/%(title)s.%(ext)s" || echo "Continue"
-      - name: Download slides
-        run: |
-          mkdir slides
-          jq -r ".slides | to_entries | map(.value) | flatten | .[]" links.json  > slide_urls.txt
-          echo "Downloading slides from these urls"
-          cat slide_urls.txt
-          wget -i slide_urls.txt -P slides
 
       - name: Upload videos
         uses: actions/upload-artifact@v3
         with:
           name: videos
           path: videos
+
+  download_slides:
+
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          ref: ${{ github.head_ref }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install CI tools
+        run: |
+          BRANCH=$NMA_MAIN_BRANCH
+          wget https://github.com/NeuromatchAcademy/nmaci/archive/refs/heads/$BRANCH.tar.gz
+          tar -xzf $BRANCH.tar.gz
+          pip install -r nmaci-$BRANCH/requirements.txt
+          mv nmaci-$BRANCH/scripts/ ci/
+          # FIXME: Remove when PR is merged
+          cp extract_links.py ci
+          rm -r nmaci-$BRANCH
+          rm -r $BRANCH.tar.gz
+          echo ci/ >> .gitignore
+
+      - name: Copy tutorials from precourse repo
+        run: |
+          BRANCH=$NMA_MAIN_BRANCH
+          wget https://github.com/NeuromatchAcademy/precourse/archive/refs/heads/$BRANCH.tar.gz
+          tar -xzf $BRANCH.tar.gz
+          mv precourse-$BRANCH/tutorials/W0D* tutorials/
+          cat precourse-main/tutorials/materials.yml tutorials/materials.yml > out.yml
+          mv out.yml tutorials/materials.yml
+          mv precourse-$BRANCH/prereqs .
+          rm -r precourse-$BRANCH
+          rm -r $BRANCH.tar.gz
+
+      - name: Extract links
+        run: |
+          ln -s ../tutorials book/tutorials
+          ln -s ../projects book/projects
+          ln -s ../prereqs book/prereqs
+          python ci/extract_links.py --noyoutube $(find -L book -name '*.ipynb') > links.json
+
+      - name: Install tools
+        run: |
+          sudo apt -y install jq
+
+      - name: Download slides
+        run: |
+          mkdir slides
+          jq -r ".slides | to_entries | map(.value) | flatten | .[]" links.json | sort | uniq > slide_urls.txt
+          echo "Downloading slides from these urls"
+          cat slide_urls.txt
+          wget --quiet -i slide_urls.txt -P slides || echo "Continue
 
       - name: Upload slides
         uses: actions/upload-artifact@v3
