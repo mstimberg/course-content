@@ -75,7 +75,7 @@ jobs:
       - name: Upload videos
         uses: actions/upload-artifact@v3
         with:
-          name: NMA-compneuro-videos-${{ github.event.repository.updated_at}}
+          name: NMA-compneuro-videos
           path: videos
 
   download_slides:
@@ -137,8 +137,14 @@ jobs:
           cd slides
           while read url; do echo wget --quiet $url; wget --quiet $url; done < ../slide_urls.txt
 
+      - name: Get update date
+        id: last_update
+        run:
+          last_update=$(echo ${{ github.event.repository.updated_at}} | cut -c -10)
+          echo "last_update=$last_update" >> $GITHUB_OUTPUT
+
       - name: Upload slides
         uses: actions/upload-artifact@v3
         with:
-          name: NMA-compneuro-slides-${{ github.event.repository.updated_at}}
+          name: NMA-compneuro-slides-${{steps.last_update.outputs.last_update}}"
           path: slides
