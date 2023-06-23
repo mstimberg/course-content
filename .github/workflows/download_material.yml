@@ -134,8 +134,7 @@ jobs:
         run: |
           mkdir slides
           jq -r "def output: \"-O \" + .value + \" \" +.key; .slides | to_entries | map(output) | .[]" links.json > slide_urls.txt
-          cat slide_urls.txt
-          for url in $(cat slide_urls.txt); do wget --quiet $url -P slides; done
+          while read url; do wget $url -P slides; done < slide_urls.txt
 
       - name: Upload slides
         uses: actions/upload-artifact@v3
