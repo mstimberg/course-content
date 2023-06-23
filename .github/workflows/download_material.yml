@@ -70,7 +70,7 @@ jobs:
           jq -r ".videos | to_entries | map(.value) | flatten | .[]" links.json  > video_urls.txt
           echo "Downloading videos from these urls"
           cat video_urls.txt
-          ./youtube-dl -a video_urls.txt -o "videos/%(title).%(ext)"
+          ./youtube-dl -a video_urls.txt -o "videos/%(title)s.%(ext)s"
       - name: Download slides
         run: |
           mkdir slides
