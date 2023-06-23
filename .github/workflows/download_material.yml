@@ -136,7 +136,7 @@ jobs:
           jq -r ".slides | to_entries | map(.value) | flatten | .[]" links.json | sort | uniq > slide_urls.txt
           echo "Downloading slides from these urls"
           cat slide_urls.txt
-          wget --quiet -i slide_urls.txt -P slides || echo "Continue
+          wget --quiet -i slide_urls.txt -P slides || echo "Continue"
 
       - name: Upload slides
         uses: actions/upload-artifact@v3
