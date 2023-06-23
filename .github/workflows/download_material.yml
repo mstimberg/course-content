@@ -67,14 +67,14 @@ jobs:
       - name: Download videos
         run: |
           mkdir videos  
-          jq ".videos" links.json | jq "to_entries" | jq "map(.value)" > video_urls.txt
+          jq -r ".videos | to_entries | map(.value) | flatten | .[]" links.json  > video_urls.txt
           echo "Downloading videos from these urls"
           cat video_urls.txt
           ./youtube-dl -a video_urls.txt -o "videos/%(title).%(ext)"
       - name: Download slides
         run: |
           mkdir slides
-          jq ".slides" links.json | jq "to_entries" | jq "map(.value)" > slide_urls.txt
+          jq -r ".slides | to_entries | map(.value) | flatten | .[]" links.json  > slide_urls.txt
           echo "Downloading slides from these urls"
           cat slide_urls.txt
           wget -i slide_urls.txt -P slides
