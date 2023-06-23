@@ -62,7 +62,7 @@ jobs:
         run: |
           wget https://youtube-dl.org/downloads/latest/youtube-dl -o youtube-dl
           chmod u+x youtube-dl
-          apt -y install jq
+          sudo apt -y install jq
 
       - name: Download videos
         run: |
