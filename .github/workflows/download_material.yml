@@ -56,7 +56,7 @@ jobs:
           ln -s ../tutorials book/tutorials
           ln -s ../projects book/projects
           ln -s ../prereqs book/prereqs
-          python ci/extract_links.py --noyoutube $(find books -name '*.ipynb') > links.json
+          python ci/extract_links.py --noyoutube $(find book -name '*.ipynb') > links.json
 
       - name: Install tools
         run: |
