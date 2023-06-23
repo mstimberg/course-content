@@ -58,14 +58,16 @@ def main(arglist):
                         url = youtube_url(video_dict["Youtube"])
                     if nb_name in videos:
                         if videos[nb_name] != url:
-                            raise ValueError(f"Mismatching video urls for {nb_name}")
+                            raise ValueError(f"Mismatching video urls for {nb_name},"
+                                             f" {videos[nb_name]} != {url}")
                     videos[nb_name] = url
                 elif l.startswith("link_id = "):
                     rhs = l.split("=")[1].strip()
                     url = osf_url(ast.literal_eval(rhs))
                     if nb_name in slides:
                         if videos[slides] != url:
-                            raise ValueError(f"Mismatching video urls for {nb_name}")
+                            raise ValueError(f"Mismatching slide urls for {nb_name}, "
+                                             f"{slides[nb_name]} != {url}")
                     slides[nb_name] = url
 
     print(json.dumps({"videos": videos, "slides": slides}, sort_keys=True, indent=4))
