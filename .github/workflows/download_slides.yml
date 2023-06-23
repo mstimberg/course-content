@@ -79,8 +79,10 @@ jobs:
             for fname in $(cat slide_fnames.txt); do
               cp slides/$fname slides_by_day/$(basename $day)-Slides
             done
-            zip -r slides_by_day/$(basename $day)-Slides.zip slides_by_day/$(basename $day)-Slides
-            rm -r slides_by_day/$(basename $day)-Slides
+            cd slides_by_day
+            zip -r $(basename $day)-Slides.zip $(basename $day)-Slides
+            rm -r $(basename $day)-Slides
+            cd ..
           done
 
       - name: Get update date
