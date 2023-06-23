@@ -69,14 +69,34 @@ jobs:
           cd slides
           while read url; do echo wget --quiet $url; wget --quiet $url; done < ../slide_urls.txt
 
+      - name: Gather slides for each day
+        run: |
+          mkdir slides_by_day
+          for day in book/tutorials/W?D?*; do
+            mkdir slides_by_day/$(basename $day)-Slides
+            python ci/extract_links.py --noyoutube $(find -L $day -name '*.ipynb') > links.json
+            jq -r "def output: .value; .slides | to_entries | map(output) | .[]" links.json > slide_fnames.txt
+            for fname in $(cat slide_fnames.txt); do
+              cp slides/$fname slides_by_day/$(basename $day)-Slides
+            done
+            zip -r slides_by_day/$(basename $day)-Slides.zip slides_by_day/$(basename $day)-Slides
+            rm -r slides_by_day/$(basename $day)-Slides
+          done
+
       - name: Get update date
         id: last_update
         run: |
           last_update=$(date -Idate --date=@${{ github.event.repository.pushed_at}})
           echo "last_update=$last_update" >> $GITHUB_OUTPUT
 
-      - name: Upload slides
+      - name: Upload full set of slides
         uses: actions/upload-artifact@v3
         with:
           name: NMA-compneuro-slides-${{steps.last_update.outputs.last_update}}
           path: slides
+
+      - name: Upload slides for each day
+        uses: actions/upload-artifact@v3
+        with:
+          name: NMA-compneuro-slides-by-day-${{steps.last_update.outputs.last_update}}
+          path: slides_by_day
