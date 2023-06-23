@@ -60,7 +60,7 @@ jobs:
 
       - name: Install tools
         run: |
-          wget https://youtube-dl.org/downloads/latest/youtube-dl -o youtube-dl
+          wget --tries=3 https://youtube-dl.org/downloads/latest/youtube-dl -O youtube-dl
           chmod u+x youtube-dl
           sudo apt -y install jq
 
