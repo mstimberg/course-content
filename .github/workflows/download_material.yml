@@ -1,0 +1,92 @@
+name: download
+
+on:
+  workflow_dispatch:
+
+env:
+  NB_KERNEL: python
+  NMA_REPO: course-content
+  NMA_MAIN_BRANCH: main
+
+jobs:
+
+  download_material:
+
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          ref: ${{ github.head_ref }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install CI tools
+        run: |
+          BRANCH=$NMA_MAIN_BRANCH
+          wget https://github.com/NeuromatchAcademy/nmaci/archive/refs/heads/$BRANCH.tar.gz
+          tar -xzf $BRANCH.tar.gz
+          pip install -r nmaci-$BRANCH/requirements.txt
+          mv nmaci-$BRANCH/scripts/ ci/
+          # FIXME: Remove when PR is merged
+          cp extract_links.py ci
+          rm -r nmaci-$BRANCH
+          rm -r $BRANCH.tar.gz
+          echo ci/ >> .gitignore
+
+      - name: Copy tutorials from precourse repo
+        run: |
+          BRANCH=$NMA_MAIN_BRANCH
+          wget https://github.com/NeuromatchAcademy/precourse/archive/refs/heads/$BRANCH.tar.gz
+          tar -xzf $BRANCH.tar.gz
+          mv precourse-$BRANCH/tutorials/W0D* tutorials/
+          cat precourse-main/tutorials/materials.yml tutorials/materials.yml > out.yml
+          mv out.yml tutorials/materials.yml
+          mv precourse-$BRANCH/prereqs .
+          rm -r precourse-$BRANCH
+          rm -r $BRANCH.tar.gz
+
+      - name: Extract links
+        run: |
+          ln -s ../tutorials book/tutorials
+          ln -s ../projects book/projects
+          ln -s ../prereqs book/prereqs
+          python ci/extract_links.py --noyoutube $(find books -name '*.ipynb') > links.json
+
+      - name: Install tools
+        run: |
+          wget https://youtube-dl.org/downloads/latest/youtube-dl -o youtube-dl
+          chmod u+x youtube-dl
+          apt -y install jq
+
+      - name: Download videos
+        run: |
+          mkdir videos  
+          jq ".videos" links.json | jq "to_entries" | jq "map(.value)" > video_urls.txt
+          echo "Downloading videos from these urls"
+          cat video_urls.txt
+          ./youtube-dl -a video_urls.txt -o "videos/%(title).%(ext)"
+      - name: Download slides
+        run: |
+          mkdir slides
+          jq ".slides" links.json | jq "to_entries" | jq "map(.value)" > slide_urls.txt
+          echo "Downloading slides from these urls"
+          cat slide_urls.txt
+          wget -i slide_urls.txt -P slides
+
+      - name: Upload videos
+        uses: actions/upload-artifact@v3
+        with:
+          name: videos
+          path: videos
+
+      - name: Upload slides
+        uses: actions/upload-artifact@v3
+        with:
+          name: slides
+          path: slides
